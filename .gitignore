@@ -1,0 +1,5 @@
+*.csproj
+*.sln
+.vscode
+a.out
+geary-guy.x86_64
