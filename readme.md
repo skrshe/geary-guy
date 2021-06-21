@@ -5,7 +5,10 @@ width=50% style="image-rendering:pixelated;">
 
 infinite runner for uni course
 
-# Story beats
+# Setting
+steampunk australia falling apart into gears
+
+# Story
 - none
 
 # Style
@@ -25,9 +28,9 @@ infinite runner for uni course
 - remappable keys
 
 # Dependencies
-- make
 - sdl2
 - sdl2\_image
+- make
 
 # Build
 ```console
