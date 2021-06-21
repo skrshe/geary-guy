@@ -8,6 +8,9 @@ infinite runner for uni course
 # Setting
 steampunk australia falling apart into gears
 
+run through deserts and towns as the country
+side falls into mechanical parts
+
 # Story
 - none
 
