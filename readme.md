@@ -6,11 +6,12 @@ width=50% style="image-rendering:pixelated;">
 infinite runner for uni course
 
 # Story beats
+- none
 
 # Style
-lanky 16bit
-steampunk
-australia
+- lanky 16bit
+- steampunk
+- Australian aesthetics
 
 # Goals
 - menu
@@ -24,13 +25,14 @@ australia
 - remappable keys
 
 # Dependencies
-make
-SDL2
-SDL\_image
+- make
+- sdl2
+- sdl2\_image
 
 # Build
 ```console
 $ make
 ```
+
 # License
 unlicense skrshe 2021. for more information go to <https://unlicense.org>
