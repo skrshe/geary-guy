@@ -15,11 +15,11 @@ int main(int argc,char **argv) {
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
             WIDTH, HEIGHT,
-            0);
+            SDL_WINDOW_SHOWN |
+            SDL_WINDOW_RESIZABLE);
 
     SDL_Renderer *ren = SDL_CreateRenderer(
-            win, -1,
-            0);
+            win, -1, 0);
 
     SDL_Surface *surf = IMG_Load("res/geary.png");
 
@@ -27,12 +27,7 @@ int main(int argc,char **argv) {
     SDL_FreeSurface(surf);
 
     SDL_Rect dest;
-    SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h);
-    dest.w *= 4;
-    dest.h *= 4;
-    dest.x = (WIDTH - dest.w) / 2;
-    dest.y = (HEIGHT - dest.h) / 2;
-
+    /* SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h); */
     int quit = 0;
     while (!quit) {
         SDL_Event e;
@@ -43,6 +38,10 @@ int main(int argc,char **argv) {
                 quit = 1;
             }
         }
+        dest.w = SDL_GetWindowSurface(win)->w;
+        dest.h = (dest.w / 16) * 9;
+        dest.x = (SDL_GetWindowSurface(win)->w - dest.w) / 2;
+        dest.y = (SDL_GetWindowSurface(win)->h - dest.h) / 2;
 
         SDL_RenderClear(ren);
         SDL_SetRenderDrawColor(ren, 24, 156, 255, 255);
