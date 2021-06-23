@@ -1,12 +1,13 @@
 #include <SDL2/SDL.h>
-/* #include <SDL2/SDL_image.h> */
+#include <SDL2/SDL_image.h>
 
-#define WIDTH  800
-#define HEIGHT 600
+#define WIDTH  1920
+#define HEIGHT 1080
 
 int main(int argc,char **argv) {
 
     SDL_Init(SDL_INIT_VIDEO);
+    IMG_Init(IMG_INIT_PNG);
     SDL_Window *win = SDL_CreateWindow(
             "gearyguy",
             0, 0, WIDTH, HEIGHT,
@@ -15,6 +16,16 @@ int main(int argc,char **argv) {
     SDL_Renderer *ren = SDL_CreateRenderer(
             win, -1,
             0);
+
+    SDL_Surface *surf = IMG_Load("res/geary.png");
+
+    SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, surf);
+    SDL_FreeSurface(surf);
+
+    SDL_Rect dest;
+    SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h);
+
+    dest.x = (WIDTH - dest.w) / 2;
 
     int quit = 0;
     while (!quit) {
@@ -29,6 +40,7 @@ int main(int argc,char **argv) {
 
         SDL_SetRenderDrawColor(ren, 24, 156, 255, 255);
         SDL_RenderClear(ren);
+        SDL_RenderCopy(ren, tex, NULL, NULL);
 
         SDL_RenderPresent(ren);
     }

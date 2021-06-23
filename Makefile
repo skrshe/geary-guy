@@ -1,2 +1,4 @@
-build:
-	gcc main.c -lSDL2 -o geary-guy.x86_64
+FLAGS=-lSDL2 -lSDL2_image
+
+geary-guy.x86_64: main.c
+	gcc $? $(FLAGS) -o $@
