@@ -38,7 +38,7 @@ int main(int argc,char **argv) {
     dest.y = (HEIGHT - dest.h) / 2;
 
 
-    SDL_Rect p_dest = {20, 50, 32, 32};
+    SDL_Rect p_dest = {20, 60, 32, 32};
 
     /* SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h); */
     int quit = 0;
