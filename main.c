@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -30,12 +31,19 @@ int main(int argc,char **argv) {
     SDL_Surface *player = IMG_Load("res/guy_sheet.png");
     SDL_Texture *p_tex = SDL_CreateTextureFromSurface(ren, player);
     SDL_FreeSurface(player);
+    int scrollOff = 0;
 
     SDL_Rect dest;
     dest.w = WIDTH;
     dest.h = HEIGHT;
-    dest.x = (WIDTH - dest.w) / 2;
-    dest.y = (HEIGHT - dest.h) / 2;
+    dest.x = scrollOff;
+    dest.y = 0;
+
+    SDL_Rect dest2;
+    dest2.w = WIDTH;
+    dest2.h = HEIGHT;
+    dest2.x = scrollOff + WIDTH;
+    dest2.y = 0;
 
 
     SDL_Rect p_dest = {20, 60, 32, 32};
@@ -55,9 +63,20 @@ int main(int argc,char **argv) {
         int frame = (SDL_GetTicks() / 150) % 7;
         SDL_Rect p_src = {frame * 32, 0, 32, 32};
 
+        dest.x = scrollOff;
+        dest2.x = scrollOff + WIDTH;
+
         SDL_RenderClear(ren);
         /* SDL_SetRenderDrawColor(ren, 24, 156, 255, 255); */
+        // bg
+        --scrollOff;
+        if (scrollOff < -WIDTH) {
+            scrollOff = 0;
+        }
+
         SDL_RenderCopy(ren, bg_tex, NULL, &dest);
+        SDL_RenderCopy(ren , bg_tex, NULL, &dest2);
+        // fg
         SDL_RenderCopy(ren, p_tex, &p_src, &p_dest);
 
         SDL_RenderPresent(ren);
