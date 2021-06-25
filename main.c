@@ -2,8 +2,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#define WIDTH  1920
-#define HEIGHT 1080
+#define WIDTH  256
+#define HEIGHT 144
+
 
 int main(int argc,char **argv) {
 
@@ -22,17 +23,22 @@ int main(int argc,char **argv) {
             win, -1, 0);
     SDL_RenderSetLogicalSize(ren, WIDTH, HEIGHT);
 
-    SDL_Surface *surf = IMG_Load("res/geary.png");
+    SDL_Surface *bg_img = IMG_Load("res/geary-backing.png");
+    SDL_Texture *bg_tex = SDL_CreateTextureFromSurface(ren, bg_img);
+    SDL_FreeSurface(bg_img);
 
-    SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, surf);
-    SDL_FreeSurface(surf);
+    SDL_Surface *player = IMG_Load("res/guy_sheet.png");
+    SDL_Texture *p_tex = SDL_CreateTextureFromSurface(ren, player);
+    SDL_FreeSurface(player);
 
     SDL_Rect dest;
-
     dest.w = WIDTH;
     dest.h = HEIGHT;
     dest.x = (WIDTH - dest.w) / 2;
     dest.y = (HEIGHT - dest.h) / 2;
+
+
+    SDL_Rect p_dest = {20, 50, 32, 32};
 
     /* SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h); */
     int quit = 0;
@@ -46,11 +52,13 @@ int main(int argc,char **argv) {
             }
         }
 
-
+        int frame = (SDL_GetTicks() / 150) % 7;
+        SDL_Rect p_src = {frame * 32, 0, 32, 32};
 
         SDL_RenderClear(ren);
-        SDL_SetRenderDrawColor(ren, 24, 156, 255, 255);
-        SDL_RenderCopy(ren, tex, NULL, &dest);
+        /* SDL_SetRenderDrawColor(ren, 24, 156, 255, 255); */
+        SDL_RenderCopy(ren, bg_tex, NULL, &dest);
+        SDL_RenderCopy(ren, p_tex, &p_src, &p_dest);
 
         SDL_RenderPresent(ren);
     }
