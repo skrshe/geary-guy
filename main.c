@@ -6,7 +6,6 @@
 #define WIDTH  256
 #define HEIGHT 144
 
-
 int main(int argc,char **argv) {
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -36,17 +35,24 @@ int main(int argc,char **argv) {
     SDL_Rect dest;
     dest.w = WIDTH;
     dest.h = HEIGHT;
-    dest.x = scrollOff;
     dest.y = 0;
 
     SDL_Rect dest2;
     dest2.w = WIDTH;
     dest2.h = HEIGHT;
-    dest2.x = scrollOff + WIDTH;
     dest2.y = 0;
 
 
-    SDL_Rect p_dest = {20, 60, 32, 32};
+    SDL_Rect p_src;
+    p_src.y = 0;
+    p_src.w = 32;
+    p_src.h = 32;
+
+    SDL_Rect p_dest;
+    p_dest.x = 20;
+    p_dest.y = 60;
+    p_dest.w = 32;
+    p_dest.h= 32;
 
     /* SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h); */
     int quit = 0;
@@ -59,10 +65,11 @@ int main(int argc,char **argv) {
                 quit = 1;
             }
         }
-
+        // animate
         int frame = (SDL_GetTicks() / 150) % 7;
-        SDL_Rect p_src = {frame * 32, 0, 32, 32};
+        p_src.x = frame * p_src.w;
 
+        // scroll bg
         dest.x = scrollOff;
         dest2.x = scrollOff + WIDTH;
 
