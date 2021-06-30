@@ -1,4 +1,10 @@
-FLAGS=-lSDL2 -lSDL2_image
+FLAGS=-lSDL2 -lSDL2_image -lm -ggdb
 
-geary-guy.x86_64: main.c
+geary-guy.x64: main.c
 	gcc $? $(FLAGS) -o $@
+
+clean:
+	rm -rf geary-guy.x64
+
+run:
+	./geary-guy.x64
