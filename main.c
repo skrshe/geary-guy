@@ -30,11 +30,11 @@ void sdlInit(){
 
 void gameInit(){
     SDL_Surface *bg_img = IMG_Load("res/geary-backing.png");
-    SDL_Texture *bg_tex = SDL_CreateTextureFromSurface(ren, bg_img);
+    SDL_Texture *bg_tex = SDL_CreateTextureFromSurface(game.ren, bg_img);
     SDL_FreeSurface(bg_img);
 
     SDL_Surface *player = IMG_Load("res/guy_sheet.png");
-    SDL_Texture *p_tex = SDL_CreateTextureFromSurface(ren, player);
+    SDL_Texture *p_tex = SDL_CreateTextureFromSurface(game.ren, player);
     SDL_FreeSurface(player);
     int scrollOff = 0;
 
