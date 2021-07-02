@@ -7,4 +7,4 @@ clean:
 	rm -rf gg
 
 run:
-	./out/tux64/gg
+	./gg
