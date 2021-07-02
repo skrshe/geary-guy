@@ -93,7 +93,7 @@ int main(int argc,char **argv) {
             }
         }
 
-        int frame = (SDL_GetTicks() / 150) % 7;
+        int frame = (SDL_GetTicks() / 150) % 6;
         p_src.x = frame * p_src.w;
 
         far_dest.x = scrollfar;
