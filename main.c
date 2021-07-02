@@ -76,6 +76,7 @@ int main(int argc,char **argv) {
     int scrollroad = 0;
     SDL_Rect road_dest; road_dest.w = 251; road_dest.h = 28; road_dest.y = 76;
     SDL_Rect road_dest2; road_dest2.w = 251; road_dest2.h = 28; road_dest2.y = 76;
+    SDL_Rect road_dest3; road_dest3.w = 251; road_dest3.h = 28; road_dest3.y = 76;
 
     SDL_Rect p_src; p_src.y = 0; p_src.w = 32; p_src.h = 32;
     SDL_Rect p_dest; p_dest.x = 20; p_dest.y = 60; p_dest.w = 32; p_dest.h = 32;
@@ -107,6 +108,7 @@ int main(int argc,char **argv) {
 
         road_dest.x = scrollroad;
         road_dest2.x = scrollroad + road_dest.w;
+        road_dest3.x = scrollroad + (road_dest.w * 2);
 
         count++;
         if (count % 4 == 0) { scrollroad--; }
@@ -137,6 +139,7 @@ int main(int argc,char **argv) {
 
         SDL_RenderCopy(game.ren, road_tex, NULL, &road_dest);
         SDL_RenderCopy(game.ren, road_tex, NULL, &road_dest2);
+        SDL_RenderCopy(game.ren, road_tex, NULL, &road_dest3);
 
         SDL_RenderCopy(game.ren, p_tex, &p_src, &p_dest);
 
