@@ -70,8 +70,8 @@ int main(int argc,char **argv) {
     SDL_Rect near_dest2; near_dest2.w = WIDTH; near_dest2.h = 36; near_dest2.y = 40;
 
     int scrollground = 0;
-    SDL_Rect ground_dest; ground_dest.w = WIDTH; ground_dest.h = HEIGHT; ground_dest.y = 0;
-    SDL_Rect ground_dest2; ground_dest2.w = WIDTH; ground_dest2.h = HEIGHT; ground_dest2.y = 0;
+    SDL_Rect ground_dest; ground_dest.w = WIDTH; ground_dest.h = 95; ground_dest.y = 49;
+    SDL_Rect ground_dest2; ground_dest2.w = WIDTH; ground_dest2.h = 95; ground_dest2.y = 49;
 
     int scrollroad = 0;
     SDL_Rect road_dest; road_dest.w = 251; road_dest.h = 28; road_dest.y = 76;
