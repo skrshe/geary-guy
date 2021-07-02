@@ -1,4 +1,4 @@
-# Gear Guy
+# Gear guy
 <!-- ![geary guy](res/guy.png){:width=100} -->
 <img src="res/guy.png"
 width=50% style="image-rendering:pixelated;">
@@ -11,6 +11,8 @@ steampunk australia falling apart into gears
 run through deserts and towns as the country
 side falls into mechanical parts
 
+and get to the end to save the world from steampunk calapse
+
 # Story
 - none
 
@@ -21,14 +23,14 @@ side falls into mechanical parts
 
 # Goals
 - menu
+- death screen
 - simple pixelart
-- chrome dino like scoreboard
 
 # stretch goal
-- paralax scrolling, 3 layers
-- 3-phase track
-- wrench mechanics
-- remappable keys
+1. paralax scrolling, 3 layers
+2. 3-phase track
+3. wrench mechanics
+4. remappable keys
 
 # Dependencies
 - sdl2
@@ -36,9 +38,18 @@ side falls into mechanical parts
 - make
 
 # Build
+
+make with:
 ```console
 $ make
 ```
+run with:
+```console
+$ make run
+```
+
+
+
 
 # License
 unlicense skrshe 2021. for more information go to <https://unlicense.org>
