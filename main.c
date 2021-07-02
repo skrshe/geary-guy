@@ -33,21 +33,36 @@ int main(int argc,char **argv) {
     SDL_RenderSetLogicalSize(game.ren, WIDTH, HEIGHT);
 
     // gameInit();
-    SDL_Surface *bg_img = IMG_Load("res/geary-backing.png");
-    SDL_Texture *bg_tex = SDL_CreateTextureFromSurface(game.ren, bg_img);
-    SDL_FreeSurface(bg_img);
+    SDL_Surface *distant_img = IMG_Load("res/distant.png");
+    SDL_Texture *distant_tex = SDL_CreateTextureFromSurface(game.ren, distant_img);
+    SDL_FreeSurface(distant_img);
+
+    SDL_Surface *near_img = IMG_Load("res/near.png");
+    SDL_Texture *near_tex = SDL_CreateTextureFromSurface(game.ren, near_img);
+    SDL_FreeSurface(near_img);
+
+    SDL_Surface *ground_img = IMG_Load("res/ground.png");
+    SDL_Texture *ground_tex = SDL_CreateTextureFromSurface(game.ren, ground_img);
+    SDL_FreeSurface(ground_img);
 
     SDL_Surface *player = IMG_Load("res/guy_sheet.png");
     SDL_Texture *p_tex = SDL_CreateTextureFromSurface(game.ren, player);
     SDL_FreeSurface(player);
 
-    int scrollOff = 0;
     int count = 0;
 
-    SDL_Rect dest; dest.w = WIDTH; dest.h = HEIGHT; dest.y = 0;
-    SDL_Rect dest2; dest2.w = WIDTH; dest2.h = HEIGHT; dest2.y = 0;
+    SDL_Rect distant_dest ={ 0, 0, WIDTH, HEIGHT };
+
+    int scrollnear = 0;
+    SDL_Rect near_dest; near_dest.w = WIDTH; near_dest.h = 36; near_dest.y = 30;
+    SDL_Rect near_dest2; near_dest2.w = WIDTH; near_dest2.h = 36; near_dest2.y = 30;
+
+    int scrollground = 0;
+    SDL_Rect ground_dest; ground_dest.w = WIDTH; ground_dest.h = HEIGHT; ground_dest.y = 0;
+    SDL_Rect ground_dest2; ground_dest2.w = WIDTH; ground_dest2.h = HEIGHT; ground_dest2.y = 0;
+
     SDL_Rect p_src; p_src.y = 0; p_src.w = 32; p_src.h = 32;
-    SDL_Rect p_dest; p_dest.x = 20; p_dest.y = 60; p_dest.w = 32; p_dest.h= 32;
+    SDL_Rect p_dest; p_dest.x = 20; p_dest.y = 60; p_dest.w = 32; p_dest.h = 32;
 
     int quit = 0;
     while (!quit) {
@@ -65,19 +80,30 @@ int main(int argc,char **argv) {
         int frame = (SDL_GetTicks() / 150) % 7;
         p_src.x = frame * p_src.w;
 
-        dest.x = scrollOff;
-        dest2.x = scrollOff + WIDTH;
+        ground_dest.x = scrollground;
+        ground_dest2.x = scrollground + WIDTH;
+        near_dest.x = scrollnear;
+        near_dest2.x = scrollnear + WIDTH;
 
         count++;
-        if (count == 7) { scrollOff--; count = 0; }
-        if (scrollOff < -WIDTH) { scrollOff = 0; }
+        if (count % 7== 0) { scrollground--; }
+        else if (count % 20 == 0) { scrollnear--; }
+        // else if (count == 140) {  count = 0;}
+
+        if (scrollground < -WIDTH) { scrollground = 0; }
+        if (scrollnear < -WIDTH) { scrollnear = 0; }
 
         // Draw
         SDL_RenderClear(game.ren);
         SDL_SetRenderDrawColor(game.ren, 0, 0, 0, 255);
 
-        SDL_RenderCopy(game.ren, bg_tex, NULL, &dest);
-        SDL_RenderCopy(game.ren , bg_tex, NULL, &dest2);
+        SDL_RenderCopy(game.ren, distant_tex, NULL, &distant_dest);
+
+        SDL_RenderCopy(game.ren, near_tex, NULL, &near_dest);
+        SDL_RenderCopy(game.ren , near_tex, NULL, &near_dest2);
+
+        SDL_RenderCopy(game.ren, ground_tex, NULL, &ground_dest);
+        SDL_RenderCopy(game.ren , ground_tex, NULL, &ground_dest2);
 
         SDL_RenderCopy(game.ren, p_tex, &p_src, &p_dest);
 
