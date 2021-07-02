@@ -12,17 +12,12 @@ struct {
     SDL_GameController *gpad;
 } game;
 
-void sdlInit() {
-}
-
-void gameInit() {
-}
-
-void gameUpdate() {
-}
+// void sdlInit() { }
+// void gameInit() { }
+// void gameUpdate() { }
 
 int main(int argc,char **argv) {
-    // sdlInit
+    // sdlInit();
     SDL_Init(SDL_INIT_VIDEO);
 
     game.win = SDL_CreateWindow(
@@ -45,28 +40,14 @@ int main(int argc,char **argv) {
     SDL_Surface *player = IMG_Load("res/guy_sheet.png");
     SDL_Texture *p_tex = SDL_CreateTextureFromSurface(game.ren, player);
     SDL_FreeSurface(player);
+
     int scrollOff = 0;
+    int count = 0;
 
-    SDL_Rect dest;
-    dest.w = WIDTH;
-    dest.h = HEIGHT;
-    dest.y = 0;
-
-    SDL_Rect dest2;
-    dest2.w = WIDTH;
-    dest2.h = HEIGHT;
-    dest2.y = 0;
-
-    SDL_Rect p_src;
-    p_src.y = 0;
-    p_src.w = 32;
-    p_src.h = 32;
-
-    SDL_Rect p_dest;
-    p_dest.x = 20;
-    p_dest.y = 60;
-    p_dest.w = 32;
-    p_dest.h= 32;
+    SDL_Rect dest; dest.w = WIDTH; dest.h = HEIGHT; dest.y = 0;
+    SDL_Rect dest2; dest2.w = WIDTH; dest2.h = HEIGHT; dest2.y = 0;
+    SDL_Rect p_src; p_src.y = 0; p_src.w = 32; p_src.h = 32;
+    SDL_Rect p_dest; p_dest.x = 20; p_dest.y = 60; p_dest.w = 32; p_dest.h= 32;
 
     int quit = 0;
     while (!quit) {
@@ -87,7 +68,8 @@ int main(int argc,char **argv) {
         dest.x = scrollOff;
         dest2.x = scrollOff + WIDTH;
 
-        --scrollOff;
+        count++;
+        if (count == 7) { scrollOff--; count = 0; }
         if (scrollOff < -WIDTH) { scrollOff = 0; }
 
         // Draw
