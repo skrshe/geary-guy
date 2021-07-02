@@ -12,7 +12,17 @@ struct {
     SDL_GameController *gpad;
 } game;
 
-void sdlInit(){
+void sdlInit() {
+}
+
+void gameInit() {
+}
+
+void gameUpdate() {
+}
+
+int main(int argc,char **argv) {
+    // sdlInit
     SDL_Init(SDL_INIT_VIDEO);
 
     game.win = SDL_CreateWindow(
@@ -26,9 +36,8 @@ void sdlInit(){
     game.ren = SDL_CreateRenderer(
             game.win, -1, 0);
     SDL_RenderSetLogicalSize(game.ren, WIDTH, HEIGHT);
-}
 
-void gameInit(){
+    // gameInit();
     SDL_Surface *bg_img = IMG_Load("res/geary-backing.png");
     SDL_Texture *bg_tex = SDL_CreateTextureFromSurface(game.ren, bg_img);
     SDL_FreeSurface(bg_img);
@@ -48,7 +57,6 @@ void gameInit(){
     dest2.h = HEIGHT;
     dest2.y = 0;
 
-
     SDL_Rect p_src;
     p_src.y = 0;
     p_src.w = 32;
@@ -59,46 +67,40 @@ void gameInit(){
     p_dest.y = 60;
     p_dest.w = 32;
     p_dest.h= 32;
-}
-
-void gameUpdate() {
-    // Tic
-    SDL_Event e;
-    while (SDL_PollEvent(&e) > 0) {
-        if (e.type == SDL_QUIT) { quit = 1; }
-        if (e.key.keysym.scancode ==
-                SDL_SCANCODE_ESCAPE) {
-            quit = 1;
-        }
-    }
-
-    int frame = (SDL_GetTicks() / 150) % 7;
-    p_src.x = frame * p_src.w;
-
-    dest.x = scrollOff;
-    dest2.x = scrollOff + WIDTH;
-
-    --scrollOff;
-    if (scrollOff < -WIDTH) { scrollOff = 0; }
-
-    // Draw
-    SDL_RenderClear(game.ren);
-    SDL_SetRenderDrawColor(game.ren, 0, 0, 0, 255);
-
-    SDL_RenderCopy(game.ren, bg_tex, NULL, &dest);
-    SDL_RenderCopy(game.ren , bg_tex, NULL, &dest2);
-
-    SDL_RenderCopy(game.ren, p_tex, &p_src, &p_dest);
-
-    SDL_RenderPresent(game.ren);
-}
-
-int main(int argc,char **argv) {
-    sdlInit();
-    gameInit();
 
     int quit = 0;
-    while (!quit) { gameUpdate(); }
+    while (!quit) {
+        //gameUpdate();
+        // Tic
+        SDL_Event e;
+        while (SDL_PollEvent(&e) > 0) {
+            if (e.type == SDL_QUIT) { quit = 1; }
+            if (e.key.keysym.scancode ==
+                    SDL_SCANCODE_ESCAPE) {
+                quit = 1;
+            }
+        }
+
+        int frame = (SDL_GetTicks() / 150) % 7;
+        p_src.x = frame * p_src.w;
+
+        dest.x = scrollOff;
+        dest2.x = scrollOff + WIDTH;
+
+        --scrollOff;
+        if (scrollOff < -WIDTH) { scrollOff = 0; }
+
+        // Draw
+        SDL_RenderClear(game.ren);
+        SDL_SetRenderDrawColor(game.ren, 0, 0, 0, 255);
+
+        SDL_RenderCopy(game.ren, bg_tex, NULL, &dest);
+        SDL_RenderCopy(game.ren , bg_tex, NULL, &dest2);
+
+        SDL_RenderCopy(game.ren, p_tex, &p_src, &p_dest);
+
+        SDL_RenderPresent(game.ren);
+    }
 
     return 0;
 }
