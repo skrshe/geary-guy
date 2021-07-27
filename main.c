@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
         if (jumpheight > 0) jumpheight--;
         p_dest.y = 60;// - jumpheight;
 
-        if (p_src.x == 6 * p_src.w) p_src.x = 0;
+        if (p_src.x % 6 * p_src.w == 0) p_src.x = 0;
 
         far_dest.x = scrollfar; far_dest2.x = scrollfar + WIDTH;
         near_dest.x = scrollnear; near_dest2.x = scrollnear + WIDTH;
